@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Play : MonoBehaviour
@@ -37,7 +38,10 @@ public class Play : MonoBehaviour
             Flip();
         }
 
-        Attack();
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            Attack();
+        }
 
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -79,6 +83,8 @@ public class Play : MonoBehaviour
             Shoot();
         }
         
+            Instantiate(bullet, firePoint.position, transform.rotation);
+            Shoot();
     }
     void Shoot()
     {
