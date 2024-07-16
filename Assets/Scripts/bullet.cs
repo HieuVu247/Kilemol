@@ -18,5 +18,6 @@ public class bullet : MonoBehaviour
     void Update()
     {
         _rb.velocity = transform.right * speed * Time.deltaTime;
+        Destroy(gameObject,lifeTime);
     }
 }
