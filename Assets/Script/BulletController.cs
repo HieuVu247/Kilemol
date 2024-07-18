@@ -18,4 +18,13 @@ public class BulletController : MonoBehaviour
         // Di chuyển đạn theo hướng của nó
         transform.Translate(Vector3.right * speed * Time.deltaTime);
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            Destroy(other.gameObject); // Hủy đối tượng enemy khi va chạm
+            Destroy(gameObject); // Hủy viên đạn sau khi va chạm
+        }
+    }
 }
