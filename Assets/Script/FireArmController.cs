@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class FireArmController : MonoBehaviour
 {
-    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject bulletPrefab;
     [SerializeField] Transform firePoint;
 
     public float fireRate = 0.5f; // Thời gian hồi chiêu giữa các lần bắn
     private float nextFireTime = 0f; // Thời gian cho phép bắn tiếp theo
     private bool isAutoFireEnabled = false; // Cờ bật/tắt chế độ tự động bắn
+
+    public int bulletsPerShot = 1; // Số lượng đạn mỗi lần bắn
+    public float spreadAngle = 10f; // Độ rộng của đạn (góc lệch giữa các đạn)
+    public float bulletSizeMultiplier = 1f; // Hệ số nhân cho kích thước của đạn
 
     private void Update()
     {
@@ -21,6 +25,7 @@ public class FireArmController : MonoBehaviour
         // Xoay người chơi theo hướng con trỏ chuột
         RotatePlayerTowardsMouse(mousePosition);
 
+        // Kiểm tra và bắn đạn khi người chơi nhấn chuột trái
         if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
         {
             Shoot();
@@ -42,8 +47,29 @@ public class FireArmController : MonoBehaviour
     }
     void Shoot()
     {
-        // Instantiate đạn từ prefab tại điểm bắn
-        Instantiate(bullet, firePoint.position, transform.rotation);
+        if (bulletsPerShot == 1)
+        {
+            // Khi chỉ có một viên đạn, bắn thẳng theo hướng của người chơi
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, transform.rotation);
+            bullet.GetComponent<BulletController>().sizeMultiplier = bulletSizeMultiplier; // Thiết lập kích thước của đạn
+        }
+        else
+        {
+            // Tính toán góc bắt đầu và kết thúc cho các viên đạn
+            float startAngle = -spreadAngle / 2;
+            float angleIncrement = spreadAngle / (bulletsPerShot - 1);
+
+            for (int i = 0; i < bulletsPerShot; i++)
+            {
+                // Tính toán góc bắn cho từng viên đạn
+                float angle = startAngle + (angleIncrement * i);
+                Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward) * transform.rotation;
+
+                // Instantiate đạn từ prefab tại điểm bắn với góc bắn đã tính toán
+                GameObject bullet = Instantiate(bulletPrefab, firePoint.position, rotation);
+                bullet.GetComponent<BulletController>().sizeMultiplier = bulletSizeMultiplier; // Thiết lập kích thước của đạn
+            }
+        }
     }
     void RotatePlayerTowardsMouse(Vector3 targetPosition)
     {

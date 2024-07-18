@@ -31,4 +31,10 @@ public class Enemy : MonoBehaviour
             Gizmos.DrawLine(transform.position, Player.position);
         }
     }
+
+    public void OnHit()
+    {
+        // Xử lý khi Enemy bị bắn trúng (ví dụ: hiệu ứng nổ, âm thanh, vv.)
+        Destroy(gameObject);
+    }
 }
