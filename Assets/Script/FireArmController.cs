@@ -7,6 +7,10 @@ public class FireArmController : MonoBehaviour
     [SerializeField] private GameObject bullet;
     [SerializeField] Transform firePoint;
 
+    public float fireRate = 0.5f; // Thời gian hồi chiêu giữa các lần bắn
+    private float nextFireTime = 0f; // Thời gian cho phép bắn tiếp theo
+    private bool isAutoFireEnabled = false; // Cờ bật/tắt chế độ tự động bắn
+
     private void Update()
     {
         //Nhà tài trợ code: ChatGPT
@@ -17,10 +21,23 @@ public class FireArmController : MonoBehaviour
         // Xoay người chơi theo hướng con trỏ chuột
         RotatePlayerTowardsMouse(mousePosition);
 
-        // Kiểm tra và bắn đạn khi người chơi nhấn chuột trái
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
         {
             Shoot();
+            nextFireTime = Time.time + fireRate; // Cập nhật thời gian cho phép bắn tiếp theo
+        }
+
+        // Kiểm tra bật/tắt tự động bắn
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            isAutoFireEnabled = !isAutoFireEnabled;
+        }
+
+        // Chế độ tự động bắn
+        if (isAutoFireEnabled && Time.time >= nextFireTime)
+        {
+            Shoot();
+            nextFireTime = Time.time + fireRate; // Cập nhật thời gian cho phép bắn tiếp theo
         }
     }
     void Shoot()
