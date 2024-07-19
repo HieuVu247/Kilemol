@@ -8,6 +8,7 @@ public class BulletController : MonoBehaviour
     public float speed = 10f;
     public float lifetime = 5f;
     public float sizeMultiplier = 1f; // Hệ số nhân cho kích thước của đạn
+    public int damage;
 
     private void Start()
     {
@@ -15,6 +16,9 @@ public class BulletController : MonoBehaviour
         transform.localScale *= sizeMultiplier;
         // Hủy đạn sau khi hết thời gian sống
         Destroy(gameObject, lifetime);
+        //damage = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>().damage;
+        //damage = GetComponent<PlayerStats>().damage;
+        damage = 10;
     }
 
     private void Update()
@@ -27,19 +31,16 @@ public class BulletController : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            // Gọi hàm bị bắn trúng của Enemy
-            collision.GetComponent<Enemy>().OnHit();
-
-            // Cộng điểm
-            ScoreManager.instance.AddScore(10); // Thêm 10 điểm mỗi lần bắn trúng Enemy
+            //Gọi hàm Nhận sát thương của Enemy
+            collision.GetComponent<EnemyController>().TakeDamage(damage);
 
             // Hủy đạn
             Destroy(gameObject);
         }
-        else if (collision.CompareTag("Wall"))
-        {
-            // Hủy đạn khi va chạm với tường
-            Destroy(gameObject);
-        }
+        //else if (collision.CompareTag("Wall"))
+        //{
+        //    // Hủy đạn khi va chạm với tường
+        //    Destroy(gameObject);
+        //}
     }
 }
