@@ -37,4 +37,15 @@ public class Enemy : MonoBehaviour
         // Xử lý khi Enemy bị bắn trúng (ví dụ: hiệu ứng nổ, âm thanh, vv.)
         Destroy(gameObject);
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            PlayerStats playerHealth = collision.GetComponent<PlayerStats>();
+            if (!playerHealth.isInvincible) // Kiểm tra nếu Player không miễn nhiễm sát thương
+            {
+                playerHealth.TakeDamage(10); // Gọi hàm TakeDamage của PlayerHealth
+            }
+        }
+    }
 }
