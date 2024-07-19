@@ -356,8 +356,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 114c74d1b2f4c604997fb7ccca6b9717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 7304248529492651827, guid: 05daf06bed0e333459ac016fc1f56ceb, type: 3}
+  bulletPrefab: {fileID: 7304248529492651827, guid: 05daf06bed0e333459ac016fc1f56ceb, type: 3}
   firePoint: {fileID: 466793235}
+  fireRate: 0.5
+  bulletsPerShot: 1
+  spreadAngle: 10
+  bulletSizeMultiplier: 1
 --- !u!212 &423965784
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -459,7 +463,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  autoAttackInterval: 0.5
 --- !u!50 &440539060
 Rigidbody2D:
   serializedVersion: 4
