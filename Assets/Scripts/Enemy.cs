@@ -7,11 +7,15 @@ public class Enemy : MonoBehaviour
     public Transform Player; // Tham chiếu đến vị trí của Player
     public float moveSpeed = 3f; // Tốc độ di chuyển của Enemy
 
+    
     private Rigidbody2D rb;
+    
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+
     }
 
     void Update()
@@ -21,6 +25,8 @@ public class Enemy : MonoBehaviour
             Vector2 direction = (Player.position - transform.position).normalized;
             rb.velocity = direction * moveSpeed;
         }
+        
+
     }
 
     void OnDrawGizmosSelected()
@@ -48,4 +54,6 @@ public class Enemy : MonoBehaviour
             }
         }
     }
+
+    
 }
