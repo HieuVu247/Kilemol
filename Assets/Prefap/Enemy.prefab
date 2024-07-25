@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7557612006908846339}
   - component: {fileID: 6246988948748457724}
   - component: {fileID: 156948289437586046}
-  - component: {fileID: 6189198397895687211}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -30,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3880303046391143717}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.3843827, y: -2.3490357, z: 0}
+  m_LocalPosition: {x: 1.2799735, y: -1.4169888, z: 0}
   m_LocalScale: {x: -3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -165,17 +164,3 @@ MonoBehaviour:
   moveSpeed: 2
   damage: 10
   maxHP: 50
---- !u!114 &6189198397895687211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3880303046391143717}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adc38231acd792c43b833193a3d1c379, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 3295684772725179904, guid: 026e4edc42a4a56458fac0881d496cd0, type: 3}
-  moveSpeed: 3
