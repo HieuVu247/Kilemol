@@ -14,6 +14,7 @@ public class EnemyController : MonoBehaviour
     {
         currentHP = maxHP;
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        
     }
 
     private void Update()
@@ -47,4 +48,6 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
+
+ 
 }

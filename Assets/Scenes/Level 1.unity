@@ -244,8 +244,8 @@ GameObject:
   m_Component:
   - component: {fileID: 113687359}
   - component: {fileID: 113687358}
-  - component: {fileID: 113687361}
   - component: {fileID: 113687362}
+  - component: {fileID: 113687363}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -281,22 +281,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &113687361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113687357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fc276b059bd0794ba937484d5c5698f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 3880303046391143717, guid: 6031470ac74410b48a43bcc78846572c, type: 3}
-  Player: {fileID: 440539055}
-  spawnInterval: 2
-  spawnRadius: 10
 --- !u!114 &113687362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,6 +294,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 2146953425}
+--- !u!114 &113687363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113687357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 288f4f3dc367f5243af36019631360aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 3880303046391143717, guid: 6031470ac74410b48a43bcc78846572c, type: 3}
+  player: {fileID: 440539055}
+  spawnDistance: 15
+  spawnInterval: 4
 --- !u!1 &150499052
 GameObject:
   m_ObjectHideFlags: 0
