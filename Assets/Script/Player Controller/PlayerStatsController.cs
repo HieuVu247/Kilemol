@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -14,9 +15,17 @@ public class PlayerStats : MonoBehaviour
     private float invincibilityTimer;
 
     private List<Collider2D> collidingEnemies = new List<Collider2D>();
+
+    public Slider healthSlider; // Thêm Slider để biểu thị HP
     private void Start()
     {
         currentHP = maxHP;
+        healthSlider.maxValue = maxHP; // Đặt giá trị tối đa của Slider là Max HP
+    }
+
+    private void Update()
+    {
+        healthSlider.value = currentHP; // Đặt giá trị hiện tại của Slider là Current HP
     }
     //Chức năng Nhận sát thương của Player
     public void TakeDamage(int damage)
