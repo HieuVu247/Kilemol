@@ -32,6 +32,7 @@ public class EnemyController : MonoBehaviour
         if (currentHP <= 0)
         {
             Destroy(gameObject);
+            LevelSystem.instance.AddEXP(expAmount);
             ScoreManager.instance.AddScore(10);// Thêm 10 điểm mỗi lần bắn trúng Enemy
         }
     }
@@ -47,4 +48,7 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
+
+    //Enemy EXP
+    int expAmount = 100;
 }
