@@ -1,5 +1,6 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -9,7 +10,7 @@ public class EnemyController : MonoBehaviour
     public int maxHP = 20;
     private int currentHP;
     private Transform player;
-
+    public GameObject prefabPopUpEnemy;
     private void Start()
     {
         currentHP = maxHP;
@@ -30,11 +31,17 @@ public class EnemyController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHP -= damage;
+        ShowDamePopUp(damage);
         if (currentHP <= 0)
         {
             Destroy(gameObject);
             ScoreManager.instance.AddScore(10);// Thêm 10 điểm mỗi lần bắn trúng Enemy
         }
+    }
+    private void ShowDamePopUp(int dameAmount) 
+    {
+        GameObject popUp = Instantiate(prefabPopUpEnemy,transform.position, Quaternion.identity);
+        popUp.GetComponentInChildren<TMP_Text>().text = dameAmount.ToString();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -46,6 +53,7 @@ public class EnemyController : MonoBehaviour
             {
                 playerHealth.TakeDamage(damage);
             }
+           
         }
     }
 
