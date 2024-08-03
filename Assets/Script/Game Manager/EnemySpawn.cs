@@ -1,8 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemyspa : MonoBehaviour
+public class EnemySpawn : MonoBehaviour
 {
     public GameObject enemyPrefab; // Prefab của enemy
     public Transform player; // Vị trí của người chơi

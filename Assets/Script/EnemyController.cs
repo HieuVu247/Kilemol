@@ -9,11 +9,12 @@ public class EnemyController : MonoBehaviour
     public int maxHP = 20;
     private int currentHP;
     private Transform player;
-
+    public int expAmount = 100;
     private void Start()
     {
         currentHP = maxHP;
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        
     }
 
     private void Update()
@@ -49,6 +50,4 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    //Enemy EXP
-    int expAmount = 100;
 }
