@@ -45,6 +45,7 @@ public class PlayerControl : MonoBehaviour
             rb.velocity = Vector2.zero;
         }
 
+        //Xoay người chơi theo Sprite thay vì Rotate, vì khi Rotate, các GameObject con của Player cũng xoay nên sẽ bị lỗi
         if (horizontal > 0.1f)
         {
             sr.flipX = false;

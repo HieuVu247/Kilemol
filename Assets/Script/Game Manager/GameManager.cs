@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        pauseMenuUI.SetActive(false);
     }
 
     void Update()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -12,11 +13,17 @@ public class PlayerStats : MonoBehaviour
     public float invincibilityDuration = 1f; // Thời gian miễn nhiễm sát thương sau khi nhận sát thương
     public bool isInvincible = false;
     private float invincibilityTimer;
+    [SerializeField] private Slider sliderHP;
 
     private List<Collider2D> collidingEnemies = new List<Collider2D>();
     private void Start()
     {
         currentHP = maxHP;
+        sliderHP.maxValue = currentHP;
+    }
+    private void Update()
+    {
+        sliderHP.value = currentHP;
     }
     //Chức năng Nhận sát thương của Player
     public void TakeDamage(int damage)

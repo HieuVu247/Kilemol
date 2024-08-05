@@ -15,7 +15,7 @@ public class HP : MonoBehaviour
             _slider.value -=2;// tùy từng quái sẽ trừ máu khác nhau 
             if(_slider.value <= 0)
             {
-                //menu lose game 
+                //menu lose game
             }    
         }    
     }
