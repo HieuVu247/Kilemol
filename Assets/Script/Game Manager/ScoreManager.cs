@@ -7,8 +7,12 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
 
-    public TMP_Text scoreText; // TextMeshPro UI để hiển thị điểm
-    private int score = 0;
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI highScoreText;
+    public TextMeshProUGUI newHighScoreText;
+
+    private int currentScore;
+    private int highScore;
 
     private void Awake()
     {
@@ -22,20 +26,33 @@ public class ScoreManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    private void Start()
+    void Start()
     {
-        UpdateScoreText();
-    }
+        // Khởi tạo điểm hiện tại và High Score
+        currentScore = 0;
+        highScore = PlayerPrefs.GetInt("HighScore", 0);
 
+        // Cập nhật UI
+        UpdateScoreUI();
+        newHighScoreText.gameObject.SetActive(false); // Ẩn thông báo New High Score ban đầu
+    }
     public void AddScore(int amount)
     {
-        score += amount;
-        UpdateScoreText();
+        currentScore += amount;
+        UpdateScoreUI();
+
+        // Kiểm tra nếu đạt New High Score
+        if (currentScore > highScore)
+        {
+            highScore = currentScore;
+            PlayerPrefs.SetInt("HighScore", highScore);
+            newHighScoreText.gameObject.SetActive(true); // Hiển thị thông báo New High Score
+        }
     }
 
-    private void UpdateScoreText()
+    void UpdateScoreUI()
     {
-        scoreText.text = "" + score;
+        scoreText.text = "Score: " + currentScore.ToString();
+        highScoreText.text = "High Score: " + highScore.ToString();
     }
 }
