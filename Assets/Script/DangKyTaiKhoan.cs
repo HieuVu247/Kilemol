@@ -10,6 +10,7 @@ public class DangKyTaiKhoan : MonoBehaviour
     public TMP_InputField username;
     public TMP_InputField password;
     public TextMeshProUGUI thongbao;
+    public GameObject DangNhap;
 
     public void DangKyButton()
     {
@@ -41,5 +42,11 @@ public class DangKyTaiKhoan : MonoBehaviour
                 default: thongbao.text = "không kết nối được tới server"; break;
             }
         }
+    }
+
+    public void ChuyenSangDangNhap()
+    {
+        DangNhap.SetActive(true);
+        gameObject.SetActive(false);
     }
 }

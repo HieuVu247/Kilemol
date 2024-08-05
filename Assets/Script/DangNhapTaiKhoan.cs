@@ -10,6 +10,7 @@ public class DangNhapTaiKhoan : MonoBehaviour
     public TMP_InputField username;
     public TMP_InputField password;
     public TextMeshProUGUI thongbao;
+    public GameObject Dangki;
 
     public void DangNhapButton()
     {
@@ -57,5 +58,10 @@ public class DangNhapTaiKhoan : MonoBehaviour
                 Debug.Log(get);
             }
         }
+    }
+    public void ChuyenSangDangKi()
+    {
+        Dangki.SetActive(true);
+        gameObject.SetActive(false);
     }
 }
