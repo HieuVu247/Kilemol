@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class DangNhapTaiKhoan : MonoBehaviour
 {
     public TMP_InputField username;
     public TMP_InputField password;
     public TextMeshProUGUI thongbao;
+    public GameObject Dangki;
 
     public void DangNhapButton()
     {
@@ -46,9 +48,20 @@ public class DangNhapTaiKhoan : MonoBehaviour
             else
             {
                 thongbao.text = "Đăng nhập thành công";
+                if (www.isDone)
+
+                {
+                    // Nếu đăng nhập thành công, chuyển sang scene Menu
+                    SceneManager.LoadScene(1);
+                }
                 PlayerPrefs.SetString("token", get);
                 Debug.Log(get);
             }
         }
+    }
+    public void ChuyenSangDangKi()
+    {
+        Dangki.SetActive(true);
+        gameObject.SetActive(false);
     }
 }
