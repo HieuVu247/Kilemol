@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -13,17 +13,12 @@ public class PlayerStats : MonoBehaviour
     public float invincibilityDuration = 1f; // Thời gian miễn nhiễm sát thương sau khi nhận sát thương
     public bool isInvincible = false;
     private float invincibilityTimer;
-    [SerializeField] private Slider sliderHP;
+    public GameObject popUpPrefab;
 
     private List<Collider2D> collidingEnemies = new List<Collider2D>();
     private void Start()
     {
         currentHP = maxHP;
-        sliderHP.maxValue = currentHP;
-    }
-    private void Update()
-    {
-        sliderHP.value = currentHP;
     }
     //Chức năng Nhận sát thương của Player
     public void TakeDamage(int damage)
@@ -31,6 +26,7 @@ public class PlayerStats : MonoBehaviour
         if (!isInvincible)
         {
             currentHP -= damage;
+            ShowDamePopUp(damage);
             if (currentHP <= 0)
             {
                 // Xử lý khi nhân vật hết máu, ví dụ: kết thúc trò chơi
@@ -39,6 +35,11 @@ public class PlayerStats : MonoBehaviour
             isInvincible = true;
             StartCoroutine(InvincibilityCooldown());
         }
+    }
+    private void ShowDamePopUp(int dameAmount)
+    {
+        GameObject popUp = Instantiate(popUpPrefab, transform.position, Quaternion.identity);
+        popUp.GetComponentInChildren<TMP_Text>().text = dameAmount.ToString();
     }
     //Hàm chạy sau khi hết thời gian miễn nhiễm sát thương của nhân vật
     private IEnumerator InvincibilityCooldown()
@@ -50,7 +51,7 @@ public class PlayerStats : MonoBehaviour
             StartCoroutine(ApplyContinuousDamage());//Gọi hàm gây sát thương liên tục
         }
     }
-    //Chức năng phtas hiện va chạm với Quái
+    //Chức năng phát hiện va chạm với Quái
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy") && !collidingEnemies.Contains(collision))
