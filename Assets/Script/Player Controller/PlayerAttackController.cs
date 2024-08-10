@@ -34,7 +34,7 @@ public class FireArmController : MonoBehaviour
 
             Shoot();
             nextFireTime = Time.time + fireRate; // Cập nhật thời gian cho phép bắn tiếp theo
-            
+            shootSFX.PlayOneShot(shoot);
         }
 
         // Kiểm tra bật/tắt tự động bắn
@@ -52,7 +52,6 @@ public class FireArmController : MonoBehaviour
     }
     void Shoot()
     {
-        shootSFX.PlayOneShot(shoot);
         if (bulletsPerShot == 1)
         {
             // Khi chỉ có một viên đạn, bắn thẳng theo hướng của người chơi
