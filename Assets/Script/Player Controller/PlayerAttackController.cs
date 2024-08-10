@@ -15,6 +15,10 @@ public class FireArmController : MonoBehaviour
     public float spreadAngle = 10f; // Độ rộng của đạn (góc lệch giữa các đạn)
     public float bulletSizeMultiplier = 1f; // Hệ số nhân cho kích thước của đạn
 
+    void PlayShootingSound()
+    {
+
+    }
     private void Update()
     {
         //Nhà tài trợ code: ChatGPT
@@ -28,6 +32,7 @@ public class FireArmController : MonoBehaviour
         // Kiểm tra và bắn đạn khi người chơi nhấn chuột trái
         if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
         {
+
             Shoot();
             nextFireTime = Time.time + fireRate; // Cập nhật thời gian cho phép bắn tiếp theo
         }
@@ -47,6 +52,7 @@ public class FireArmController : MonoBehaviour
     }
     void Shoot()
     {
+        PlayShootingSound();
         if (bulletsPerShot == 1)
         {
             // Khi chỉ có một viên đạn, bắn thẳng theo hướng của người chơi
