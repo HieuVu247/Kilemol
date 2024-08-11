@@ -52,7 +52,7 @@ public class DangNhapTaiKhoan : MonoBehaviour
 
                 {
                     // Nếu đăng nhập thành công, chuyển sang scene Menu
-                    SceneManager.LoadScene(0);
+                    SceneManager.LoadScene(1);
                 }
                 PlayerPrefs.SetString("token", get);
                 Debug.Log(get);

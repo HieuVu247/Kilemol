@@ -48,6 +48,7 @@ public class FireArmController : MonoBehaviour
         {
             Shoot();
             nextFireTime = Time.time + fireRate; // Cập nhật thời gian cho phép bắn tiếp theo
+            shootSFX.PlayOneShot(shoot);
         }
     }
     void Shoot()
