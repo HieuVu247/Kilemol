@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dd1ab62a24b97e4fb4cf4fe379c918f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 3880303046391143717, guid: 6031470ac74410b48a43bcc78846572c, type: 3}
+  enemyPrefab: {fileID: 6900579361562533766, guid: 55b122ab2c25b2047b97e23a166c4d45, type: 3}
   player: {fileID: 440539055}
   spawnDistance: 10
   spawnInterval: 2
@@ -896,7 +896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61aee7c9400b9a044b7976aadc945db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedMode: 1000
+  speedMode: 5555
 --- !u!114 &440539065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -914,7 +914,7 @@ MonoBehaviour:
   damage: 10
   invincibilityDuration: 1
   isInvincible: 0
-  sliderHP: {fileID: 1000285099}
+  popUpPrefab: {fileID: 4608096619136472270, guid: 80b5210006055024684439e19e8a8305, type: 3}
 --- !u!1 &461810953
 GameObject:
   m_ObjectHideFlags: 0
