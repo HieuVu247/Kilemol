@@ -8,8 +8,11 @@ public class EnemySpawn : MonoBehaviour
     public Transform player; // Vị trí của người chơi
     public float spawnDistance = 10f; // Khoảng cách tối thiểu từ camera để spawn enemy
     public float spawnInterval = 2f; // Thời gian giữa các lần spawn
+    public float intervalIncreaseAmount = 0.5f; // Lượng tăng thời gian spawn mỗi 15 giây
+    public float intervalIncreaseTime = 15f; // Thời gian để tăng thời gian spawn
 
     private float timer = 0f;
+    private float increaseTimer = 0f; // Bộ đếm thời gian cho việc tăng spawnInterval
     private Camera mainCamera;
 
     void Start()
@@ -20,11 +23,18 @@ public class EnemySpawn : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
+        increaseTimer += Time.deltaTime;
 
         if (timer >= spawnInterval)
         {
             SpawnEnemy();
             timer = 0f;
+        }
+
+        if (increaseTimer >= intervalIncreaseTime)
+        {
+            spawnInterval += intervalIncreaseAmount;
+            increaseTimer = 0f;
         }
     }
 
