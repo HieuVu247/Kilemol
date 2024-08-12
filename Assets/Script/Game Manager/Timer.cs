@@ -27,7 +27,7 @@ public class Timer : MonoBehaviour
             UpdateTimerDisplay();
 
             // Kiểm tra nếu thời gian đã đạt 30 giây
-            if (elapsedTime >= 30f)
+            if (elapsedTime >= 300f)
             {
                 CompleteGame();
             }

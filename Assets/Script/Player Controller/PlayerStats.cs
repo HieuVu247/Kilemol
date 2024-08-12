@@ -14,7 +14,7 @@ public class PlayerStats : MonoBehaviour
     public Image backHealthBar;
     public TextMeshProUGUI healthText;
 
-    public float damage = 10; // Sát thương của nhân vật
+    public float playerDMG = 20; // Sát thương của nhân vật
 
     public float invincibilityDuration = 1f; // Thời gian miễn nhiễm sát thương sau khi nhận sát thương
     public bool isInvincible = false;
@@ -66,7 +66,7 @@ public class PlayerStats : MonoBehaviour
             collidingEnemies.Add(collision);
             if (!isInvincible)
             {
-                TakeDamage(10);
+                TakeDamage(playerDMG);
                 StartCoroutine(InvincibilityCooldown());//Kiểm tra và Reset trạng thái miễn nhiễm sát thương của Nhân vật
             }
         }
@@ -84,7 +84,7 @@ public class PlayerStats : MonoBehaviour
     {
         while (collidingEnemies.Count > 0 && !isInvincible)
         {
-            TakeDamage(10);
+            TakeDamage(playerDMG / 1.5f);
             yield return new WaitForSeconds(invincibilityDuration);
         }
     }
@@ -141,6 +141,12 @@ public class PlayerStats : MonoBehaviour
     }
     public void IncreaseDamage(int level)
     {
-        damage += (damage * 0.5f) * ((100 - level) * 0.1f);
+        playerDMG += (playerDMG * 0.01f) * ((100 - level) * 0.1f);
+        // Cập nhật giá trị sát thương cho các kẻ địch
+        EnemyController[] enemies = FindObjectsOfType<EnemyController>();
+        foreach (EnemyController enemy in enemies)
+        {
+            enemy.UpdateDamage(playerDMG);
+        }
     }
 }

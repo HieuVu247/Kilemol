@@ -18,7 +18,17 @@ public class BulletController : MonoBehaviour
         Destroy(gameObject, lifetime);
         //damage = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>().damage;
         //damage = GetComponent<PlayerStats>().damage;
-        damage = 10;
+        PlayerStats playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
+        if (playerStats != null)
+        {
+            damage = (int)playerStats.playerDMG;
+            Debug.Log("Bullet damage set to: " + damage);
+        }
+        else
+        {
+            Debug.LogError("PlayerStats component not found on player!");
+            damage = 10; // Giá trị mặc định nếu không tìm thấy PlayerStats
+        }
     }
 
     private void Update()
@@ -26,21 +36,25 @@ public class BulletController : MonoBehaviour
         // Di chuyển đạn theo hướng của nó
         transform.Translate(Vector3.right * speed * Time.deltaTime);
     }
-    
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
-            //Gọi hàm Nhận sát thương của Enemy
-            collision.GetComponent<EnemyController>().TakeDamage(damage);
+            // Gọi hàm Nhận sát thương của Enemy
+            EnemyController enemy = collision.GetComponent<EnemyController>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+                Debug.Log("Enemy took damage: " + damage);
+            }
+            else
+            {
+                Debug.LogError("EnemyController component not found on enemy!");
+            }
 
             // Hủy đạn
             Destroy(gameObject);
         }
-        //else if (collision.CompareTag("Wall"))
-        //{
-        //    // Hủy đạn khi va chạm với tường
-        //    Destroy(gameObject);
-        //}
     }
 }
