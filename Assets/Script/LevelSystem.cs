@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +6,8 @@ using TMPro;
 
 public class LevelSystem : MonoBehaviour
 {
+    public static LevelSystem instance;
+
     public int level;
     public float currentXP;
     public float requiredXP;
@@ -29,6 +31,17 @@ public class LevelSystem : MonoBehaviour
     public float divisionMultiplier = 7;
 
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     void Start()
     {
         frontXP.fillAmount = currentXP / requiredXP;
@@ -86,7 +99,8 @@ public class LevelSystem : MonoBehaviour
         frontXP.fillAmount = 0f;
         backXP.fillAmount = 0f;
         currentXP = Mathf.RoundToInt(currentXP - requiredXP);
-        GetComponent<PlayerHealth>().IncreaseHealth(level);
+        GetComponent<PlayerStats>().IncreaseHealth(level);
+        GetComponent<PlayerStats>().IncreaseDamage(level);
         requiredXP = CalculateRequiredXP();
         levelText.text = "" + level;
     }

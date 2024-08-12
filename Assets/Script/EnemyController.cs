@@ -36,6 +36,7 @@ public class EnemyController : MonoBehaviour
         {
             Destroy(gameObject);
             ScoreManager.instance.AddScore(10);// Thêm 10 điểm mỗi lần bắn trúng Enemy
+            LevelSystem.instance.GainEXPFlatRate(50);
         }
     }
     private void ShowDamePopUp(int dameAmount) 

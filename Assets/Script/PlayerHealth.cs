@@ -5,9 +5,9 @@ using UnityEngine.UI;
 using TMPro;
 public class PlayerHealth : MonoBehaviour
 {
+    private float m_HealthMax = 100f;
     private float m_Health;
     private float lerpTimer;
-    private float m_HealthMax = 100f;
     public float chipSpeed = 2f;
     public Image frontHealthBar;
     public Image backHealthBar;
