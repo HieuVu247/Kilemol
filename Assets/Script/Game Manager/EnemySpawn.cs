@@ -12,6 +12,7 @@ public class EnemySpawn : MonoBehaviour
     public float intervalIncreaseTime = 15f; // Thời gian để tăng thời gian spawn
 
     private float timer = 0f;
+
     private float increaseTimer = 0f; // Bộ đếm thời gian cho việc tăng spawnInterval
     private Camera mainCamera;
 
