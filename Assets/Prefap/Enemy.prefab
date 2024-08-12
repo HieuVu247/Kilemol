@@ -163,5 +163,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   damage: 10
-  maxHP: 50
+  maxHP: 30
   prefabPopUpEnemy: {fileID: 4608096619136472270, guid: 80b5210006055024684439e19e8a8305, type: 3}

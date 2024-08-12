@@ -28,20 +28,25 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int playerDMG)
     {
-        currentHP -= damage;
-        ShowDamePopUp(damage);
+        currentHP -= playerDMG;
+        ShowDamePopUp(playerDMG);
         if (currentHP <= 0)
         {
             Destroy(gameObject);
             ScoreManager.instance.AddScore(10);// Thêm 10 điểm mỗi lần bắn trúng Enemy
+            LevelSystem.instance.GainEXPFlatRate(Random.Range(50f, 100f));
         }
     }
-    private void ShowDamePopUp(int dameAmount) 
+    private void ShowDamePopUp(int dmgAmount) 
     {
         GameObject popUp = Instantiate(prefabPopUpEnemy,transform.position, Quaternion.identity);
-        popUp.GetComponentInChildren<TMP_Text>().text = dameAmount.ToString();
+        popUp.GetComponentInChildren<TMP_Text>().text = dmgAmount.ToString();
+    }
+    public void UpdateDamage(float newDamage)
+    {
+        damage = (int)newDamage; // Cập nhật sát thương dựa trên `playerDMG` mới
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -57,5 +62,6 @@ public class EnemyController : MonoBehaviour
         }
     }
 
- 
+
+
 }
