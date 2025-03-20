@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public GameObject pauseMenuUI;
-    private bool isPaused = false;
+    private bool _isPaused = false;
 
     private void Awake()
     {
@@ -27,7 +26,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isPaused)
+            if (_isPaused)
             {
                 ResumeGame();
             }
@@ -42,14 +41,14 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(ResumeTimeGradually());
         pauseMenuUI.SetActive(false);
-        isPaused = false;
+        _isPaused = false;
     }
 
     public void PauseGame()
     {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
-        isPaused = true;
+        _isPaused = true;
     }
 
     public void RestartScene()

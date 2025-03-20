@@ -1,67 +1,96 @@
-    using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public interface IEnemyState
 {
+    void Enter(EnemyController enemy);
+    void Update(EnemyController enemy);
+    void Exit(EnemyController enemy);
+}
+
+public abstract class EnemyController : MonoBehaviour
+{
+    protected Animator animator;
+    protected Rigidbody2D rb;
     public float moveSpeed = 2f;
-    public int damage = 10;
-    public int maxHP = 20;
-    private int currentHP;
-    private Transform player;
-    public GameObject prefabPopUpEnemy;
-    private void Start()
+    public float attackRange = 1f;
+    public float damage = 5f;
+    public float maxHP = 50f;
+    protected float currentHP;
+    protected IEnemyState currentState;
+
+    protected virtual void Start()
     {
+        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
         currentHP = maxHP;
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        
+        currentState = new IdleState();
+        currentState.Enter(this);
     }
 
     private void Update()
     {
-        if (player != null)
-        {
-            // Di chuyển tới vị trí của người chơi
-            Vector2 direction = (player.position - transform.position).normalized;
-            transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
-        }
+        currentState.Update(this);
     }
 
-    public void TakeDamage(int playerDMG)
+    public void SetState(IEnemyState newState)
     {
-        currentHP -= playerDMG;
-        ShowDamePopUp(playerDMG);
-        if (currentHP <= 0)
-        {
-            Destroy(gameObject);
-            ScoreManager.instance.AddScore(10);// Thêm 10 điểm mỗi lần bắn trúng Enemy
-            LevelSystem.instance.GainEXPFlatRate(Random.Range(50f, 100f));
-        }
+        currentState.Exit(this);
+        currentState = newState;
+        currentState.Enter(this);
     }
-    private void ShowDamePopUp(int dmgAmount) 
+
+    public virtual void TakeDamage(float damage)
     {
-        GameObject popUp = Instantiate(prefabPopUpEnemy,transform.position, Quaternion.identity);
-        popUp.GetComponentInChildren<TMP_Text>().text = dmgAmount.ToString();
+        currentHP -= damage;
+        DamagePopup.Create(transform.position, damage);
+        if (currentHP <= 0) Die();
     }
-    public void UpdateDamage(float newDamage)
+
+    protected virtual void Die()
     {
-        damage = (int)newDamage; // Cập nhật sát thương dựa trên `playerDMG` mới
+        Destroy(gameObject);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    // Phương thức công khai để điều khiển Animator
+    public void SetMovingAnimation(bool isMoving)
     {
-        if (collision.CompareTag("Player"))
-        {
-            PlayerStats playerHealth = collision.GetComponent<PlayerStats>();
-            if (playerHealth != null && !playerHealth.isInvincible)
-            {
-                playerHealth.TakeDamage(damage);
-            }
-           
-        }
+        animator.SetBool("isMoving", isMoving);
     }
 
+    public void TriggerAttackAnimation()
+    {
+        animator.SetTrigger("attack");
+    }
+    // Phương thức công khai để điều khiển Rigidbody2D
+    public void SetVelocity(Vector2 velocity)
+    {
+        rb.linearVelocity = velocity;
+    }
+}
 
+public class IdleState : IEnemyState
+{
+    public void Enter(EnemyController enemy) { enemy.SetMovingAnimation(false); }
+    public void Update(EnemyController enemy) { }
+    public void Exit(EnemyController enemy) { }
+}
 
+public class MoveState : IEnemyState
+{
+    private Vector3 target;
+    public void Enter(EnemyController enemy) { enemy.SetMovingAnimation(true); }
+    public void Update(EnemyController enemy)
+    {
+        Vector2 direction = (target - enemy.transform.position).normalized;
+        enemy.SetVelocity(direction * enemy.moveSpeed); // Sửa dòng 80
+    }
+        public void Exit(EnemyController enemy) { enemy.SetVelocity(Vector2.zero); } // Sửa dòng 82
+        public void SetTarget(Vector3 newTarget) { target = newTarget; }
+}
+
+public class AttackState : IEnemyState
+{
+    public void Enter(EnemyController enemy) { enemy.TriggerAttackAnimation(); }
+    public void Update(EnemyController enemy) { }
+    public void Exit(EnemyController enemy) { }
 }
