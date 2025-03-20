@@ -17,7 +17,7 @@ public class DamagePopupPool : MonoBehaviour
             DamagePopup popup = obj.GetComponent<DamagePopup>();
             popup.Initialize(pool);
             return popup;
-        }, 20); // Tạo pool với 20 phần tử ban đầu
+        }, 5); // Tạo pool với 20 phần tử ban đầu
     }
 
     public DamagePopup Get() => pool.Get();
