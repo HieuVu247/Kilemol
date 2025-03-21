@@ -14,7 +14,10 @@ public abstract class EnemyController : MonoBehaviour
     public float moveSpeed = 2f;
     public float attackRange = 1f;
     public float damage = 5f;
+    private float attackCooldown = 1f;
+    private float lastAttackTime;
     public float maxHP = 50f;
+    public float expValue = 10f; // EXP mà Player nhận khi quái chết
     protected float currentHP;
     protected IEnemyState currentState;
 
@@ -48,6 +51,11 @@ public abstract class EnemyController : MonoBehaviour
 
     protected virtual void Die()
     {
+        PlayerStats playerStats = FindObjectOfType<PlayerStats>();
+        if (playerStats != null)
+        {
+            playerStats.AddEXP(expValue); // Cộng EXP cho Player
+        }
         Destroy(gameObject);
     }
 
@@ -65,6 +73,19 @@ public abstract class EnemyController : MonoBehaviour
     public void SetVelocity(Vector2 velocity)
     {
         rb.linearVelocity = velocity;
+    }
+    protected virtual void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && Time.time - lastAttackTime >= attackCooldown)
+        {
+            PlayerStats playerStats = collision.gameObject.GetComponent<PlayerStats>();
+            if (playerStats != null)
+            {
+                playerStats.TakeDamage(damage);
+                TriggerAttackAnimation();
+                lastAttackTime = Time.time;
+            }
+        }
     }
 }
 

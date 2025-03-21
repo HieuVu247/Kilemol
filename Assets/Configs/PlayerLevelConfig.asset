@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: PlayerLevelConfig
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLevelConfig
-  baseDamage: 10
+  baseDamage: 20
   baseHP: 100
   damageIncreasePerLevel: 2
   hpIncreasePerLevel: 10
+  expToLevelUp: 50
+  expIncreasePerLevel: 20

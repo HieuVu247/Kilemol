@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        // Di chuyển
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         Vector2 moveDirection = new Vector2(moveX, moveY).normalized;
@@ -26,8 +27,8 @@ public class PlayerController : MonoBehaviour
 
         animator.SetBool("isMoving", moveDirection != Vector2.zero);
 
+        // Chỉ giữ chức năng bắn bằng chuột trái
         if (Input.GetMouseButtonDown(0)) Shoot();
-        if (Input.GetMouseButtonDown(1)) MeleeAttack();
     }
 
     private void Shoot()
@@ -38,11 +39,5 @@ public class PlayerController : MonoBehaviour
         Vector2 direction = (mousePos - transform.position).normalized;
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
         projectile.GetComponent<Rigidbody2D>().linearVelocity = direction * 10f;
-    }
-
-    private void MeleeAttack()
-    {
-        animator.SetTrigger("melee");
-        audioSource.PlayOneShot(attackSound);
     }
 }
