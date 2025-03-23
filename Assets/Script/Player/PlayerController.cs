@@ -3,18 +3,17 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public PlayerStats stats;
-    public float moveSpeed = 5f;
+    public float walkSpeed = 5f; // Tốc độ đi bộ
+    public float runSpeed = 8f;  // Tốc độ chạy
+    private float moveSpeed;     // Tốc độ hiện tại
     private Rigidbody2D rb;
     private Animator animator;
-    private AudioSource audioSource;
-    public AudioClip attackSound;
-    public GameObject projectilePrefab;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>();
+        moveSpeed = walkSpeed; // Mặc định là tốc độ đi bộ
     }
 
     private void Update()
@@ -23,21 +22,20 @@ public class PlayerController : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         Vector2 moveDirection = new Vector2(moveX, moveY).normalized;
+
+        // Chuyển đổi giữa Walk và Run
+        if (Input.GetKey(KeyCode.LeftShift)) // Nhấn Shift để chạy
+        {
+            moveSpeed = runSpeed;
+            animator.SetBool("isRunning", true);
+        }
+        else
+        {
+            moveSpeed = walkSpeed;
+            animator.SetBool("isRunning", false);
+        }
+
         rb.linearVelocity = moveDirection * moveSpeed;
-
-        animator.SetBool("isMoving", moveDirection != Vector2.zero);
-
-        // Chỉ giữ chức năng bắn bằng chuột trái
-        if (Input.GetMouseButtonDown(0)) Shoot();
-    }
-
-    private void Shoot()
-    {
-        animator.SetTrigger("shoot");
-        audioSource.PlayOneShot(attackSound);
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = (mousePos - transform.position).normalized;
-        GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        projectile.GetComponent<Rigidbody2D>().linearVelocity = direction * 10f;
+        animator.SetBool("isMoving", moveDirection != Vector2.zero); 
     }
 }
