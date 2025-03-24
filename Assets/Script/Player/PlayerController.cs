@@ -2,40 +2,55 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public PlayerStats stats;
-    public float walkSpeed = 5f; // Tốc độ đi bộ
-    public float runSpeed = 8f;  // Tốc độ chạy
-    private float moveSpeed;     // Tốc độ hiện tại
+    public float walkSpeed = 5f;
+    public float runSpeed = 8f;
     private Rigidbody2D rb;
     private Animator animator;
+    private bool facingRight = true;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        moveSpeed = walkSpeed; // Mặc định là tốc độ đi bộ
     }
 
     private void Update()
     {
-        // Di chuyển
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         Vector2 moveDirection = new Vector2(moveX, moveY).normalized;
 
-        // Chuyển đổi giữa Walk và Run
-        if (Input.GetKey(KeyCode.LeftShift)) // Nhấn Shift để chạy
+        bool isMoving = moveDirection != Vector2.zero;
+        bool isRunning = Input.GetKey(KeyCode.LeftShift) && isMoving;
+
+        // Determine direction
+        if (moveX > 0)
         {
-            moveSpeed = runSpeed;
-            animator.SetBool("isRunning", true);
+            facingRight = true;
+        }
+        else if (moveX < 0)
+        {
+            facingRight = false;
+        }
+
+        // Flip sprite only when not running
+        if (!isRunning)
+        {
+            transform.localScale = new Vector3(facingRight ? 1 : -1, 1, 1);
         }
         else
         {
-            moveSpeed = walkSpeed;
-            animator.SetBool("isRunning", false);
+            transform.localScale = new Vector3(1, 1, 1); // Do not flip when running
         }
 
-        rb.linearVelocity = moveDirection * moveSpeed;
-        animator.SetBool("isMoving", moveDirection != Vector2.zero); 
+        // Set parameters for Animator
+        animator.SetBool("toWalk", isMoving && !isRunning);
+        animator.SetBool("toRun", isRunning);
+        animator.SetBool("facingRight", facingRight);
+
+        // Set velocity
+        float speed = isRunning ? runSpeed : (isMoving ? walkSpeed : 0);
+        animator.SetFloat("moveSpeed", speed);
+        rb.linearVelocity = moveDirection * speed;
     }
 }

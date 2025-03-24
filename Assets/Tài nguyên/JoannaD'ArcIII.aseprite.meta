@@ -41,6 +41,16 @@ ScriptedImporter:
   - first:
       type: UnityEngine:AnimationClip
       assembly: UnityEngine.AnimationModule
+      name: Idle to Run
+    second: {fileID: 7400000, guid: 44c738884cf0d5844aabddc1c8253c4a, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Idle to Walk
+    second: {fileID: 7400000, guid: 94ec8f927cafaef4baad00126015b076, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
       name: Jump&Fall
     second: {fileID: 7400000, guid: deeaeb58a03b69e4dbf92e0a3bd4bee2, type: 2}
   - first:
@@ -58,6 +68,11 @@ ScriptedImporter:
       assembly: UnityEngine.AnimationModule
       name: Run
     second: {fileID: 7400000, guid: 1d9a305552f6b964eb3200069f048b4f, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Run to Idle
+    second: {fileID: 7400000, guid: baabf2f0fe50475418357cd3edee5c5d, type: 2}
   - first:
       type: UnityEngine:AnimationClip
       assembly: UnityEngine.AnimationModule
@@ -101,13 +116,33 @@ ScriptedImporter:
   - first:
       type: UnityEngine:AnimationClip
       assembly: UnityEngine.AnimationModule
+      name: Turn L to R
+    second: {fileID: 7400000, guid: e7925001c9107884ab8bc3177e3b83de, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Turn R to L
+    second: {fileID: 7400000, guid: ab00c80f58fe1134ca829b12d7146ac5, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
       name: Walk
     second: {fileID: 7400000, guid: 8bc756c4cc5156b4e8786bb6a980cc2f, type: 2}
   - first:
       type: UnityEngine:AnimationClip
       assembly: UnityEngine.AnimationModule
+      name: Walk To Idle
+    second: {fileID: 7400000, guid: ed44a45a9d8a78d4dbb2afb9d7d7d483, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
       name: Walking
     second: {fileID: 7400000, guid: 15fc2b369af0a8747b31d78a14c209e9, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: to Dash
+    second: {fileID: 7400000, guid: d27734273376cf54b9d406152b78240a, type: 2}
   serializedVersion: 2
   userData: 
   assetBundleName: 
@@ -202,7 +237,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638783471865743507
+  platformSettingsDirtyTick: 638783826526480409
   textureAssetName: 
   singleSpriteImportData:
   - name: 
