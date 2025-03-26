@@ -104,6 +104,11 @@ public class PlayerStats : MonoBehaviour
         Debug.Log("Player Died!");
         Destroy(gameObject);
     }
+    
+    public void Heal(float amount)
+    {
+        targetHP = Mathf.Min(targetHP + amount, hpSlider.maxValue);
+    }
 
     // Coroutine để giảm HP mượt mà
     private IEnumerator UpdateHPSmoothly()
